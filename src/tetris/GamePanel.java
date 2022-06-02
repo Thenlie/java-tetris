@@ -11,7 +11,9 @@ public class GamePanel extends JPanel implements ActionListener{
 	static final int SCREEN_HEIGHT = 500;
 	static final int UNIT_SIZE = 25;
 	static final int GAME_UNITS = (SCREEN_WIDTH * SCREEN_HEIGHT) / UNIT_SIZE;
-	static final int DELAY = 100;
+	static final int DELAY = 60;
+	int timerCount = 0;
+	int gravity = 5;
 	int[] x =  new int[GAME_UNITS];
 	int[] y = new int[GAME_UNITS];
 	char direction = 'D';
@@ -47,6 +49,7 @@ public class GamePanel extends JPanel implements ActionListener{
 				g.drawLine(i*UNIT_SIZE, 0, i*UNIT_SIZE, SCREEN_HEIGHT);
 				g.drawLine(0, i*UNIT_SIZE, SCREEN_WIDTH, i*UNIT_SIZE);
 			}
+			
 			// draw pixel
 			g.setColor(Color.green);
 			g.fillRect(x[0], y[0], UNIT_SIZE, UNIT_SIZE);
@@ -55,10 +58,12 @@ public class GamePanel extends JPanel implements ActionListener{
 		}
 	}
 		
-	public void move() {
+	public void moveDown() {
 		// move pixel down one square
 		y[0] = y[0] + UNIT_SIZE;
-		
+	}
+	
+	public void move() {
 		// check for left or right input
 		if (direction == 'R') {
 			if (x[0] < SCREEN_WIDTH - 25) {
@@ -83,7 +88,7 @@ public class GamePanel extends JPanel implements ActionListener{
 		if (y[0] < 0) {
 			running = false;
 		}
-		if (y[0] > SCREEN_HEIGHT) {
+		if (y[0] > SCREEN_HEIGHT - 25) {
 			running = false;
 		}
 		
@@ -103,9 +108,16 @@ public class GamePanel extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (running) {
-			System.out.println(direction);
+			timerCount++;
 			move();
-			checkCollisions();
+			if (timerCount == gravity) {			
+				timerCount = 0;
+				System.out.println("boom");
+				moveDown();
+				checkCollisions();
+			} else {
+				System.out.println("bam");
+			}
 		}
 		repaint();
 	}
