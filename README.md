@@ -1,6 +1,6 @@
-# Java Snake
+# Java Tetris
 
-The obligatory first Java game development project! This game was built exclusively to learn the Java programming language. The game is functional but looks terrible and is mostly a document of my coding progress. 
+My attempt at making a NES Tetris clone with Java!
 
 # Technologies
 
