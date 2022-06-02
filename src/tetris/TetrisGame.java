@@ -1,6 +1,6 @@
-package snake;
+package tetris;
 
-public class SnakeGame {
+public class TetrisGame {
 
 	public static void main(String[] args) {
 		
