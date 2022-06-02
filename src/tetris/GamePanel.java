@@ -7,15 +7,14 @@ import java.util.Random;
 
 public class GamePanel extends JPanel implements ActionListener{
 
-	static final int SCREEN_WIDTH = 600;
-	static final int SCREEN_HEIGHT = 600;
+	static final int SCREEN_WIDTH = 250;
+	static final int SCREEN_HEIGHT = 500;
 	static final int UNIT_SIZE = 25;
 	static final int GAME_UNITS = (SCREEN_WIDTH * SCREEN_HEIGHT) / UNIT_SIZE;
 	static final int DELAY = 75;
 	final int x[] = new int[GAME_UNITS];
 	final int y[] = new int[GAME_UNITS];
 	int bodyParts = 6;
-	int applesEaten, appleX, appleY;
 	char direction = 'R';
 	boolean running = false;
 	Timer timer;
@@ -31,7 +30,6 @@ public class GamePanel extends JPanel implements ActionListener{
 	}
 	
 	public void startGame() {
-		newApple();
 		running = true;
 		timer = new Timer(DELAY, this);
 		timer.start();
@@ -49,9 +47,6 @@ public class GamePanel extends JPanel implements ActionListener{
 				g.drawLine(i*UNIT_SIZE, 0, i*UNIT_SIZE, SCREEN_HEIGHT);
 				g.drawLine(0, i*UNIT_SIZE, SCREEN_WIDTH, i*UNIT_SIZE);
 			}
-			// draw apple
-			g.setColor(Color.red);
-			g.fillOval(appleX, appleY, UNIT_SIZE, UNIT_SIZE);
 			// draw snake
 			for(int i = 0; i < bodyParts; i++) {
 				// draw head
@@ -69,13 +64,7 @@ public class GamePanel extends JPanel implements ActionListener{
 			gameOver(g);
 		}
 	}
-	
-	public void newApple() {
-		// generate coordinates of new apple
-		appleX = random.nextInt((int)(SCREEN_WIDTH/UNIT_SIZE)) * UNIT_SIZE;
-		appleY = random.nextInt((int)(SCREEN_HEIGHT/UNIT_SIZE)) * UNIT_SIZE;
-	}
-	
+		
 	public void move() {
 		// move snake
 		for(int i = bodyParts; i > 0; i--) {
@@ -96,14 +85,6 @@ public class GamePanel extends JPanel implements ActionListener{
 		case 'R':
 			x[0] = x[0] + UNIT_SIZE;
 			break;
-		}
-	}
-	
-	public void checkApple() {
-		if ((x[0] == appleX) && (y[0] == appleY)) {
-			bodyParts++;
-			applesEaten++;
-			newApple();
 		}
 	}
 	
@@ -136,21 +117,15 @@ public class GamePanel extends JPanel implements ActionListener{
 	public void gameOver(Graphics g) {
 		// game over message
 		g.setColor(Color.gray);
-		g.setFont(new Font("Monospaced", Font.BOLD, 75));
+		g.setFont(new Font("Monospaced", Font.BOLD, 32));
 		FontMetrics metrics1 = getFontMetrics(g.getFont());
 		g.drawString("Game Over", (SCREEN_WIDTH - metrics1.stringWidth("Game Over"))/2, SCREEN_HEIGHT/2);
-		// score
-		g.setColor(Color.gray);
-		g.setFont(new Font("Monospaced", Font.BOLD, 40));
-		FontMetrics metrics2 = getFontMetrics(g.getFont());
-		g.drawString("Score:" + applesEaten, (SCREEN_WIDTH - metrics2.stringWidth("Score:" + applesEaten))/2, (SCREEN_HEIGHT/2) + 50);
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (running) {
 			move();
-			checkApple();
 			checkCollisions();
 		}
 		repaint();
