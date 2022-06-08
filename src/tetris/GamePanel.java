@@ -15,15 +15,15 @@ public class GamePanel extends JPanel implements ActionListener{
 	static final int DELAY = 60;
 	int timerCount = 0;
 	int gravity = 5;
-	int[] staticPiecesX = new int[GAME_UNITS];
-	int[] staticPiecesY = new int[GAME_UNITS];
+	int[] staticPixelsX = new int[GAME_UNITS];
+	int[] staticPixelsY = new int[GAME_UNITS];
 	boolean running = false;
 	Timer timer;
 	Random random;
 	Pixel pixel;
 	
 	Tetromino currentPiece;
-	ArrayList<Pixel> staticPieces = new ArrayList<Pixel>();
+	ArrayList<Pixel> staticPixels = new ArrayList<Pixel>();
 	
 	GamePanel() {
 		random = new Random();
@@ -36,8 +36,8 @@ public class GamePanel extends JPanel implements ActionListener{
 	
 	public void startGame() {
 		for (int i = 0; i < GAME_UNITS; i++) {
-			staticPiecesX[i] = -1;
-			staticPiecesY[i] = -1;
+			staticPixelsX[i] = -1;
+			staticPixelsY[i] = -1;
 		}
 		generateTetromino();
 		running = true;
@@ -82,9 +82,9 @@ public class GamePanel extends JPanel implements ActionListener{
 				g.fillRect(currentPiece.pixelArrX[i], currentPiece.pixelArrY[i], UNIT_SIZE, UNIT_SIZE);
 			}
 			// draw static pixels
-			for (int i = 0; i < staticPieces.size(); i++) {
+			for (int i = 0; i < staticPixels.size(); i++) {
 				g.setColor(color);
-				g.fillRect(staticPieces.get(i).xCoord, staticPieces.get(i).yCoord - UNIT_SIZE, UNIT_SIZE, UNIT_SIZE);
+				g.fillRect(staticPixels.get(i).xCoord, staticPixels.get(i).yCoord - UNIT_SIZE, UNIT_SIZE, UNIT_SIZE);
 			}
 		} else {
 			gameOver(g);
@@ -142,7 +142,7 @@ public class GamePanel extends JPanel implements ActionListener{
 			// add currentPiece pixels to pixel array
 			for (int i = 0; i < 4; i++) {
 				Pixel p = new Pixel(currentPiece.colorCode, currentPiece.pixelArrX[i], currentPiece.pixelArrY[i]);
-				staticPieces.add(p);
+				staticPixels.add(p);
 			}
 			generateTetromino();
 		}
