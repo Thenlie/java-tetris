@@ -140,7 +140,6 @@ public class GamePanel extends JPanel implements ActionListener{
 	}
 	
 	public void checkCollisions(int start) {
-		System.out.println(start);
 		// get lowest pixel
 		int maxY = 0;
 		for (int i = 0; i < currentPiece.pixelArrY.length; i++) {
