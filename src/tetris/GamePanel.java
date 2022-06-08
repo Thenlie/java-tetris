@@ -43,7 +43,7 @@ public class GamePanel extends JPanel implements ActionListener{
 	}
 	
 	public void draw(Graphics g) {
-		if (running ) {
+		if (running) {
 			// create grid to help with visualization
 			for(int i = 0; i < SCREEN_HEIGHT/UNIT_SIZE; i++) {
 				g.drawLine(i*UNIT_SIZE, 0, i*UNIT_SIZE, SCREEN_HEIGHT);
@@ -85,9 +85,6 @@ public class GamePanel extends JPanel implements ActionListener{
 	
 	public void checkCollisions() {
 		// check if snake head runs into wall
-		if (y[0] < 0) {
-			running = false;
-		}
 		if (y[0] > SCREEN_HEIGHT - 25) {
 			running = false;
 		}
@@ -137,9 +134,8 @@ public class GamePanel extends JPanel implements ActionListener{
 				}
 				break;
 			case KeyEvent.VK_DOWN:
-				if (direction != 'U') {
-					direction = 'D';
-				}
+				direction = 'D';
+				moveDown();
 				break;
 			}
 		}
