@@ -15,6 +15,7 @@ public class GamePanel extends JPanel implements ActionListener{
 	int gravity = 5;
 	int[] x =  new int[4];
 	int[] y = new int[4];
+	int pieceId;
 	boolean running = false;
 	Timer timer;
 	Random random;
@@ -42,6 +43,7 @@ public class GamePanel extends JPanel implements ActionListener{
 		// generate new piece using random number
 		Tetromino piece = new Tetromino(t);
 		System.out.println("Current Piece: " + piece.name);
+		pieceId = piece.id;
 		for (int i = 0; i < 4; i++) {			
 			System.out.println(piece.pixelArrX[i]);
 			x[i] = piece.pixelArrX[i] * UNIT_SIZE + (UNIT_SIZE * 4);
@@ -62,9 +64,18 @@ public class GamePanel extends JPanel implements ActionListener{
 				g.drawLine(i*UNIT_SIZE, 0, i*UNIT_SIZE, SCREEN_HEIGHT);
 				g.drawLine(0, i*UNIT_SIZE, SCREEN_WIDTH, i*UNIT_SIZE);
 			}
+			//get color
+			Color color;
+			if (pieceId == 1 || pieceId == 4 ||pieceId == 7) {
+				color = Color.white;
+			} else if (pieceId == 1 || pieceId == 5) {
+				color = Color.blue;
+			} else {
+				color = Color.red;
+			}
 			// draw pixel
 			for (int i = 0; i < 4; i++) {				
-				g.setColor(Color.green);
+				g.setColor(color);
 				g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
 			}
 		} else {

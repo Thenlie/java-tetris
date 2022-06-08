@@ -10,17 +10,17 @@ public class Tetromino {
 		id = x;
 		switch (id) {
 		case 1:
-			name = "I";
+			name = "T";
 			// set x pixel coordinate
 			pixelArrX[0] = 0;
 			pixelArrX[1] = -1;
 			pixelArrX[2] = 1;
-			pixelArrX[3] = 2;
+			pixelArrX[3] = 0;
 			// set y pixel coordinate
 			pixelArrY[0] = 0;
 			pixelArrY[1] = 0;
 			pixelArrY[2] = 0;
-			pixelArrY[3] = 0;
+			pixelArrY[3] = 1;
 			break;
 		case 2:
 			name = "J";
@@ -36,17 +36,17 @@ public class Tetromino {
 			pixelArrY[3] = 2;
 			break;
 		case 3:
-			name = "L";
+			name = "Z";
 			// set x pixel coordinate
 			pixelArrX[0] = 0;
-			pixelArrX[1] = 0;
-			pixelArrX[2] = 0;
-			pixelArrX[3] = 1;
+			pixelArrX[1] = 1;
+			pixelArrX[2] = 1;
+			pixelArrX[3] = 2;
 			// set y pixel coordinate
 			pixelArrY[0] = 0;
-			pixelArrY[1] = 1;
-			pixelArrY[2] = 2;
-			pixelArrY[3] = 2;
+			pixelArrY[1] = 0;
+			pixelArrY[2] = 1;
+			pixelArrY[3] = 1;
 			break;
 		case 4:
 			name = "O";
@@ -75,30 +75,30 @@ public class Tetromino {
 			pixelArrY[3] = 1;
 			break;
 		case 6:
-			name = "Z";
+			name = "L";
 			// set x pixel coordinate
 			pixelArrX[0] = 0;
-			pixelArrX[1] = 1;
+			pixelArrX[1] = 0;
+			pixelArrX[2] = 0;
+			pixelArrX[3] = 1;
+			// set y pixel coordinate
+			pixelArrY[0] = 0;
+			pixelArrY[1] = 1;
+			pixelArrY[2] = 2;
+			pixelArrY[3] = 2;
+			break;
+		case 7:
+			name = "I";
+			// set x pixel coordinate
+			pixelArrX[0] = 0;
+			pixelArrX[1] = -1;
 			pixelArrX[2] = 1;
 			pixelArrX[3] = 2;
 			// set y pixel coordinate
 			pixelArrY[0] = 0;
 			pixelArrY[1] = 0;
-			pixelArrY[2] = 1;
-			pixelArrY[3] = 1;
-			break;
-		case 7:
-			name = "T";
-			// set x pixel coordinate
-			pixelArrX[0] = 0;
-			pixelArrX[1] = -1;
-			pixelArrX[2] = 1;
-			pixelArrX[3] = 0;
-			// set y pixel coordinate
-			pixelArrY[0] = 0;
-			pixelArrY[1] = 0;
 			pixelArrY[2] = 0;
-			pixelArrY[3] = 1;
+			pixelArrY[3] = 0;
 			break;
 		}
 	}
