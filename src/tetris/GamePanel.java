@@ -22,7 +22,7 @@ public class GamePanel extends JPanel implements ActionListener{
 	Random random;
 	
 	Tetromino currentPiece;
-	ArrayList<Tetromino> staticPieces = new ArrayList<Tetromino>();
+	ArrayList<Pixel> staticPieces = new ArrayList<Pixel>();
 	
 	GamePanel() {
 		random = new Random();
