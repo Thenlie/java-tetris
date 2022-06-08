@@ -1,6 +1,7 @@
 package tetris;
 
 public class Tetromino {
+	static final int UNIT_SIZE = 25;
 	int id;
 	int colorCode;
 	String name;
