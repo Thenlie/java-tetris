@@ -80,11 +80,17 @@ public class GamePanel extends JPanel implements ActionListener{
 	}
 	
 	public void moveLeft() {
+		int min = SCREEN_WIDTH;
+		for (int i = 0; i < x.length; i++) {
+	        if (x[i] < min) {
+	            min = x[i];
+	        }
+	    }
 		System.out.println("Left");
 		System.out.println(x[0]);
 		System.out.println(SCREEN_WIDTH - 25);
 		// move piece left one square
-		if (x[0] > 0) {
+		if (min > 0) {
 			for (int i = 0; i < 4; i++) {					
 				x[i] = x[i] - UNIT_SIZE;
 			}
@@ -92,11 +98,17 @@ public class GamePanel extends JPanel implements ActionListener{
 	}
 	
 	public void moveRight() {
+		int max = 0;
+		for (int i = 0; i < x.length; i++) {
+	        if (x[i] > max) {
+	            max = x[i];
+	        }
+	    }
 		System.out.println("Right");
 		System.out.println(x[0]);
 		System.out.println(SCREEN_WIDTH - 25);
 		// move piece right one square
-		if (x[0] < SCREEN_WIDTH - 25) {
+		if (max < SCREEN_WIDTH - 25) {
 			for (int i = 0; i < 4; i++) {					
 				x[i] = x[i] + UNIT_SIZE;
 			}
