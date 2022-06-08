@@ -53,6 +53,7 @@ public class GamePanel extends JPanel implements ActionListener{
 		Tetromino piece = new Tetromino(t);
 		System.out.println("Current Piece: " + piece.name + " | " + piece.colorCode);
 		currentPiece = piece;
+		checkCollisions(1);
 	}
 	
 	public void paintComponent(Graphics g) {
@@ -138,22 +139,27 @@ public class GamePanel extends JPanel implements ActionListener{
 		}
 	}
 	
-	public void checkCollisions() {
+	public void checkCollisions(int start) {
+		System.out.println(start);
 		// get lowest pixel
 		int maxY = 0;
-		int maxX = 0;
 		for (int i = 0; i < currentPiece.pixelArrY.length; i++) {
 	        if (currentPiece.pixelArrY[i] > maxY) {
 	            maxY = currentPiece.pixelArrY[i];
-//	            maxX = currentPiece.pixelArrX[i];
 	        }
 	    }
 		// check if pixel hits a static pixel
 		for (int i = 0; i < staticPixels.size(); i++) {
 			for (int j = 0; j < 4; j++) {				
 				if (staticPixels.get(i).xCoord == currentPiece.pixelArrX[j] && staticPixels.get(i).yCoord - 25 == currentPiece.pixelArrY[j]) {
-					setStaticPixels();
-					break;
+					if (start == 1) {
+						timer.stop();
+						running = false;
+						break;
+					} else {						
+						setStaticPixels();
+						break;
+					}
 				}
 			}
 		}
@@ -165,12 +171,14 @@ public class GamePanel extends JPanel implements ActionListener{
 	}
 	
 	public void setStaticPixels() {
-		// add currentPiece pixels to pixel array
-		for (int i = 0; i < 4; i++) {
-			Pixel p = new Pixel(currentPiece.colorCode, currentPiece.pixelArrX[i], currentPiece.pixelArrY[i]);
-			staticPixels.add(p);
+		if (running) {			
+			// add currentPiece pixels to pixel array
+			for (int i = 0; i < 4; i++) {
+				Pixel p = new Pixel(currentPiece.colorCode, currentPiece.pixelArrX[i], currentPiece.pixelArrY[i]);
+				staticPixels.add(p);
+			}
+			generateTetromino();
 		}
-		generateTetromino();
 	}
 	
 	public void gameOver(Graphics g) {
@@ -188,7 +196,7 @@ public class GamePanel extends JPanel implements ActionListener{
 			if (timerCount == gravity) {			
 				timerCount = 0;
 				moveDown();
-				checkCollisions();
+				checkCollisions(0);
 			} 
 		}
 		repaint();
