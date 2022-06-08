@@ -33,6 +33,10 @@ public class GamePanel extends JPanel implements ActionListener{
 	}
 	
 	public void startGame() {
+		for (int i = 0; i < GAME_UNITS; i++) {
+			staticPiecesX[i] = -1;
+			staticPiecesY[i] = -1;
+		}
 		generateTetromino();
 		running = true;
 		timer = new Timer(DELAY, this);
@@ -48,9 +52,7 @@ public class GamePanel extends JPanel implements ActionListener{
 		System.out.println("Current Piece: " + piece.name);
 		pieceId = piece.id;
 		for (int i = 0; i < 4; i++) {			
-			System.out.println(piece.pixelArrX[i]);
 			activePieceX[i] = piece.pixelArrX[i] * UNIT_SIZE + (UNIT_SIZE * 4);
-			System.out.println(piece.pixelArrY[i]);
 			activePieceY[i] = piece.pixelArrY[i] * UNIT_SIZE;
 		}
 	}
@@ -76,10 +78,19 @@ public class GamePanel extends JPanel implements ActionListener{
 			} else {
 				color = Color.red;
 			}
-			// draw pixel
+			// draw active pixels
 			for (int i = 0; i < 4; i++) {				
 				g.setColor(color);
 				g.fillRect(activePieceX[i], activePieceY[i], UNIT_SIZE, UNIT_SIZE);
+			}
+			// draw static pixels
+			for (int i = 0; i < GAME_UNITS; i++) {
+				if (staticPiecesX[i] != -1 && staticPiecesY[i] != -1) {		
+					System.out.println(staticPiecesX[i]);
+					System.out.println(staticPiecesY[i]);
+					g.setColor(color);
+					g.fillRect(staticPiecesX[i], staticPiecesY[i], UNIT_SIZE, UNIT_SIZE);
+				}
 			}
 		} else {
 			gameOver(g);
@@ -134,10 +145,34 @@ public class GamePanel extends JPanel implements ActionListener{
 	    }
 		// check if pixel hits the ground
 		if (max > SCREEN_HEIGHT - 25) {
-			
-			
-			
-			running = false;
+			// add active piece to static X array
+			byte c = 0;
+			for (int i = 0; i < staticPiecesX.length; i++) {
+				if (staticPiecesX[i] == -1) {
+					if (c < 4) {	
+						staticPiecesX[i] = activePieceX[c];
+						System.out.println(staticPiecesX[i]);
+						c++;
+					}
+				} else {
+					continue;
+				}
+			}
+			// add active piece to static Y array
+			byte d = 0;
+			for (int i = 0; i < staticPiecesY.length; i++) {
+				if (staticPiecesY[i] == -1) {
+					if (d < 4) {		
+						staticPiecesY[i] = activePieceY[d] - 25;
+						System.out.println(staticPiecesY[i]);
+						d++;
+					}
+				} else {
+					continue;
+				}
+			}
+			generateTetromino();
+//			running = false;
 		}
 		
 		if (!running) {
