@@ -52,8 +52,8 @@ public class GamePanel extends JPanel implements ActionListener{
 		System.out.println("Current Piece: " + piece.name);
 		pieceId = piece.id;
 		for (int i = 0; i < 4; i++) {			
-			activePieceX[i] = piece.pixelArrX[i] * UNIT_SIZE + (UNIT_SIZE * 4);
-			activePieceY[i] = piece.pixelArrY[i] * UNIT_SIZE;
+			activePieceX[i] = piece.pixelArrX[i];
+			activePieceY[i] = piece.pixelArrY[i];
 		}
 	}
 	
