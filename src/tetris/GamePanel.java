@@ -10,12 +10,11 @@ public class GamePanel extends JPanel implements ActionListener{
 	static final int SCREEN_WIDTH = 250;
 	static final int SCREEN_HEIGHT = 500;
 	static final int UNIT_SIZE = 25;
-	static final int GAME_UNITS = (SCREEN_WIDTH * SCREEN_HEIGHT) / UNIT_SIZE;
 	static final int DELAY = 60;
 	int timerCount = 0;
 	int gravity = 5;
-	int[] x =  new int[GAME_UNITS];
-	int[] y = new int[GAME_UNITS];
+	int[] x =  new int[4];
+	int[] y = new int[4];
 	char direction = 'D';
 	boolean running = false;
 	Timer timer;
@@ -31,17 +30,25 @@ public class GamePanel extends JPanel implements ActionListener{
 	}
 	
 	public void startGame() {
+		generateTetromino();
+		running = true;
+		timer = new Timer(DELAY, this);
+		timer.start();
+	}
+	
+	public void generateTetromino() {
 		// create a random number for the piece type
 		random = new Random();
 		int t = random.nextInt(7) + 1;
 		// generate new piece using random number
 		Tetromino piece = new Tetromino(t);
 		System.out.println("Current Piece: " + piece.name);
-		// set pixel starting position
-		x[0] = UNIT_SIZE * 4;
-		running = true;
-		timer = new Timer(DELAY, this);
-		timer.start();
+		for (int i = 0; i < 4; i++) {			
+			System.out.println(piece.pixelArrX[i]);
+			x[i] = piece.pixelArrX[i] * UNIT_SIZE + (UNIT_SIZE * 4);
+			System.out.println(piece.pixelArrY[i]);
+			y[i] = piece.pixelArrY[i] * UNIT_SIZE;
+		}
 	}
 	
 	public void paintComponent(Graphics g) {
@@ -57,8 +64,10 @@ public class GamePanel extends JPanel implements ActionListener{
 				g.drawLine(0, i*UNIT_SIZE, SCREEN_WIDTH, i*UNIT_SIZE);
 			}
 			// draw pixel
-			g.setColor(Color.green);
-			g.fillRect(x[0], y[0], UNIT_SIZE, UNIT_SIZE);
+			for (int i = 0; i < 4; i++) {				
+				g.setColor(Color.green);
+				g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
+			}
 		} else {
 			gameOver(g);
 		}
@@ -66,14 +75,18 @@ public class GamePanel extends JPanel implements ActionListener{
 		
 	public void moveDown() {
 		// move pixel down one square
-		y[0] = y[0] + UNIT_SIZE;
+		for (int i = 0; i < 4; i++) {					
+			y[i] = y[i] + UNIT_SIZE;
+		}
 	}
 	
 	public void move() {
 		// check for left or right input
 		if (direction == 'R') {
 			if (x[0] < SCREEN_WIDTH - 25) {
-				x[0] = x[0] + UNIT_SIZE;
+				for (int i = 0; i < 4; i++) {					
+					x[i] = x[i] + UNIT_SIZE;
+				}
 				direction = 'D';
 			} else {
 				direction = 'D';
@@ -81,7 +94,9 @@ public class GamePanel extends JPanel implements ActionListener{
 		}
 		if (direction == 'L') {
 			if (x[0] > 0) {				
-				x[0] = x[0] - UNIT_SIZE;
+				for (int i = 0; i < 4; i++) {					
+					x[i] = x[i] - UNIT_SIZE;
+				}
 				direction = 'D';
 			} else {
 				direction = 'D';
