@@ -139,6 +139,14 @@ public class GamePanel extends JPanel implements ActionListener{
 		}
 	}
 	
+	public void rotateLeft() {
+		
+	}
+	
+	public void rotateRight() {
+		
+	}
+	
 	public void checkCollisions(int start) {
 		// get lowest pixel
 		int maxY = 0;
@@ -213,6 +221,12 @@ public class GamePanel extends JPanel implements ActionListener{
 				break;
 			case KeyEvent.VK_DOWN:
 				moveDown();
+				break;
+			case KeyEvent.VK_Q:
+				rotateLeft();
+				break;
+			case KeyEvent.VK_E:
+				rotateRight();
 				break;
 			}
 		}
