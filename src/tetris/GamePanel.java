@@ -31,6 +31,9 @@ public class GamePanel extends JPanel implements ActionListener{
 	}
 	
 	public void startGame() {
+		Tetromino piece = new Tetromino(2);
+		piece.showType();
+		System.out.println(piece.type);
 		x[0] = 100;
 		running = true;
 		timer = new Timer(DELAY, this);
@@ -84,7 +87,7 @@ public class GamePanel extends JPanel implements ActionListener{
 	}
 	
 	public void checkCollisions() {
-		// check if snake head runs into wall
+		// check if pixel hits the ground
 		if (y[0] > SCREEN_HEIGHT - 25) {
 			running = false;
 		}
@@ -109,12 +112,9 @@ public class GamePanel extends JPanel implements ActionListener{
 			move();
 			if (timerCount == gravity) {			
 				timerCount = 0;
-				System.out.println("boom");
 				moveDown();
 				checkCollisions();
-			} else {
-				System.out.println("bam");
-			}
+			} 
 		}
 		repaint();
 	}
