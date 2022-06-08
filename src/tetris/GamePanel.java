@@ -20,6 +20,7 @@ public class GamePanel extends JPanel implements ActionListener{
 	boolean running = false;
 	Timer timer;
 	Random random;
+	Pixel pixel;
 	
 	Tetromino currentPiece;
 	ArrayList<Pixel> staticPieces = new ArrayList<Pixel>();
@@ -81,11 +82,9 @@ public class GamePanel extends JPanel implements ActionListener{
 				g.fillRect(currentPiece.pixelArrX[i], currentPiece.pixelArrY[i], UNIT_SIZE, UNIT_SIZE);
 			}
 			// draw static pixels
-			for (int i = 0; i < GAME_UNITS; i++) {
-				if (staticPiecesX[i] != -1 && staticPiecesY[i] != -1) {		
-					g.setColor(color);
-					g.fillRect(staticPiecesX[i], staticPiecesY[i], UNIT_SIZE, UNIT_SIZE);
-				}
+			for (int i = 0; i < staticPieces.size(); i++) {
+				g.setColor(color);
+				g.fillRect(staticPieces.get(i).xCoord, staticPieces.get(i).yCoord - UNIT_SIZE, UNIT_SIZE, UNIT_SIZE);
 			}
 		} else {
 			gameOver(g);
@@ -140,34 +139,12 @@ public class GamePanel extends JPanel implements ActionListener{
 	    }
 		// check if pixel hits the ground
 		if (max > SCREEN_HEIGHT - 25) {
-			// add active piece to static X array
-			byte c = 0;
-			for (int i = 0; i < staticPiecesX.length; i++) {
-				if (staticPiecesX[i] == -1) {
-					if (c < 4) {	
-						staticPiecesX[i] = currentPiece.pixelArrX[c];
-						System.out.println(staticPiecesX[i]);
-						c++;
-					}
-				} else {
-					continue;
-				}
-			}
-			// add active piece to static Y array
-			byte d = 0;
-			for (int i = 0; i < staticPiecesY.length; i++) {
-				if (staticPiecesY[i] == -1) {
-					if (d < 4) {		
-						staticPiecesY[i] = currentPiece.pixelArrY[d] - 25;
-						System.out.println(staticPiecesY[i]);
-						d++;
-					}
-				} else {
-					continue;
-				}
+			// add currentPiece pixels to pixel array
+			for (int i = 0; i < 4; i++) {
+				Pixel p = new Pixel(currentPiece.colorCode, currentPiece.pixelArrX[i], currentPiece.pixelArrY[i]);
+				staticPieces.add(p);
 			}
 			generateTetromino();
-//			running = false;
 		}
 		
 		if (!running) {
