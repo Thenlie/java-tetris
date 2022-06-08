@@ -10,11 +10,14 @@ public class GamePanel extends JPanel implements ActionListener{
 	static final int SCREEN_WIDTH = 250;
 	static final int SCREEN_HEIGHT = 500;
 	static final int UNIT_SIZE = 25;
+	static final int GAME_UNITS = (SCREEN_WIDTH * SCREEN_HEIGHT) / UNIT_SIZE;
 	static final int DELAY = 60;
 	int timerCount = 0;
 	int gravity = 5;
-	int[] x =  new int[4];
-	int[] y = new int[4];
+	int[] activePieceX =  new int[4];
+	int[] activePieceY = new int[4];
+	int[] staticPiecesX = new int[GAME_UNITS];
+	int[] staticPiecesY = new int[GAME_UNITS];
 	int pieceId;
 	boolean running = false;
 	Timer timer;
@@ -46,9 +49,9 @@ public class GamePanel extends JPanel implements ActionListener{
 		pieceId = piece.id;
 		for (int i = 0; i < 4; i++) {			
 			System.out.println(piece.pixelArrX[i]);
-			x[i] = piece.pixelArrX[i] * UNIT_SIZE + (UNIT_SIZE * 4);
+			activePieceX[i] = piece.pixelArrX[i] * UNIT_SIZE + (UNIT_SIZE * 4);
 			System.out.println(piece.pixelArrY[i]);
-			y[i] = piece.pixelArrY[i] * UNIT_SIZE;
+			activePieceY[i] = piece.pixelArrY[i] * UNIT_SIZE;
 		}
 	}
 	
@@ -76,7 +79,7 @@ public class GamePanel extends JPanel implements ActionListener{
 			// draw pixel
 			for (int i = 0; i < 4; i++) {				
 				g.setColor(color);
-				g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
+				g.fillRect(activePieceX[i], activePieceY[i], UNIT_SIZE, UNIT_SIZE);
 			}
 		} else {
 			gameOver(g);
@@ -85,22 +88,22 @@ public class GamePanel extends JPanel implements ActionListener{
 		
 	public void moveDown() {
 		for (int i = 0; i < 4; i++) {					
-			y[i] = y[i] + UNIT_SIZE;
+			activePieceY[i] = activePieceY[i] + UNIT_SIZE;
 		}
 	}
 	
 	public void moveLeft() {
 		// get left most pixel
 		int min = SCREEN_WIDTH;
-		for (int i = 0; i < x.length; i++) {
-	        if (x[i] < min) {
-	            min = x[i];
+		for (int i = 0; i < activePieceX.length; i++) {
+	        if (activePieceX[i] < min) {
+	            min = activePieceX[i];
 	        }
 	    }
 		// ensure it can move before moving
 		if (min > 0) {
 			for (int i = 0; i < 4; i++) {					
-				x[i] = x[i] - UNIT_SIZE;
+				activePieceX[i] = activePieceX[i] - UNIT_SIZE;
 			}
 		}
 	}
@@ -108,15 +111,15 @@ public class GamePanel extends JPanel implements ActionListener{
 	public void moveRight() {
 		// get right most pixel
 		int max = 0;
-		for (int i = 0; i < x.length; i++) {
-	        if (x[i] > max) {
-	            max = x[i];
+		for (int i = 0; i < activePieceX.length; i++) {
+	        if (activePieceX[i] > max) {
+	            max = activePieceX[i];
 	        }
 	    }
 		// ensure it can move before moving
 		if (max < SCREEN_WIDTH - 25) {
 			for (int i = 0; i < 4; i++) {					
-				x[i] = x[i] + UNIT_SIZE;
+				activePieceX[i] = activePieceX[i] + UNIT_SIZE;
 			}
 		}
 	}
@@ -124,13 +127,16 @@ public class GamePanel extends JPanel implements ActionListener{
 	public void checkCollisions() {
 		// get lowest pixel
 		int max = 0;
-		for (int i = 0; i < y.length; i++) {
-	        if (y[i] > max) {
-	            max = y[i];
+		for (int i = 0; i < activePieceY.length; i++) {
+	        if (activePieceY[i] > max) {
+	            max = activePieceY[i];
 	        }
 	    }
 		// check if pixel hits the ground
 		if (max > SCREEN_HEIGHT - 25) {
+			
+			
+			
 			running = false;
 		}
 		
