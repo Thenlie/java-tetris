@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.util.Random;
+import java.util.ArrayList;
 
 public class GamePanel extends JPanel implements ActionListener{
 
@@ -14,14 +15,14 @@ public class GamePanel extends JPanel implements ActionListener{
 	static final int DELAY = 60;
 	int timerCount = 0;
 	int gravity = 5;
-	int[] activePieceX =  new int[4];
-	int[] activePieceY = new int[4];
 	int[] staticPiecesX = new int[GAME_UNITS];
 	int[] staticPiecesY = new int[GAME_UNITS];
-	int pieceId;
 	boolean running = false;
 	Timer timer;
 	Random random;
+	
+	Tetromino currentPiece;
+	ArrayList<Tetromino> staticPieces = new ArrayList<Tetromino>();
 	
 	GamePanel() {
 		random = new Random();
@@ -50,11 +51,7 @@ public class GamePanel extends JPanel implements ActionListener{
 		// generate new piece using random number
 		Tetromino piece = new Tetromino(t);
 		System.out.println("Current Piece: " + piece.name);
-		pieceId = piece.id;
-		for (int i = 0; i < 4; i++) {			
-			activePieceX[i] = piece.pixelArrX[i];
-			activePieceY[i] = piece.pixelArrY[i];
-		}
+		currentPiece = piece;
 	}
 	
 	public void paintComponent(Graphics g) {
@@ -71,9 +68,9 @@ public class GamePanel extends JPanel implements ActionListener{
 			}
 			//get color
 			Color color;
-			if (pieceId == 1 || pieceId == 4 ||pieceId == 7) {
+			if (currentPiece.id == 1 || currentPiece.id == 4 ||currentPiece.id == 7) {
 				color = Color.white;
-			} else if (pieceId == 1 || pieceId == 5) {
+			} else if (currentPiece.id == 1 || currentPiece.id == 5) {
 				color = Color.blue;
 			} else {
 				color = Color.red;
@@ -81,13 +78,11 @@ public class GamePanel extends JPanel implements ActionListener{
 			// draw active pixels
 			for (int i = 0; i < 4; i++) {				
 				g.setColor(color);
-				g.fillRect(activePieceX[i], activePieceY[i], UNIT_SIZE, UNIT_SIZE);
+				g.fillRect(currentPiece.pixelArrX[i], currentPiece.pixelArrY[i], UNIT_SIZE, UNIT_SIZE);
 			}
 			// draw static pixels
 			for (int i = 0; i < GAME_UNITS; i++) {
 				if (staticPiecesX[i] != -1 && staticPiecesY[i] != -1) {		
-					System.out.println(staticPiecesX[i]);
-					System.out.println(staticPiecesY[i]);
 					g.setColor(color);
 					g.fillRect(staticPiecesX[i], staticPiecesY[i], UNIT_SIZE, UNIT_SIZE);
 				}
@@ -99,22 +94,22 @@ public class GamePanel extends JPanel implements ActionListener{
 		
 	public void moveDown() {
 		for (int i = 0; i < 4; i++) {					
-			activePieceY[i] = activePieceY[i] + UNIT_SIZE;
+			currentPiece.pixelArrY[i] = currentPiece.pixelArrY[i] + UNIT_SIZE;
 		}
 	}
 	
 	public void moveLeft() {
 		// get left most pixel
 		int min = SCREEN_WIDTH;
-		for (int i = 0; i < activePieceX.length; i++) {
-	        if (activePieceX[i] < min) {
-	            min = activePieceX[i];
+		for (int i = 0; i < currentPiece.pixelArrX.length; i++) {
+	        if (currentPiece.pixelArrX[i] < min) {
+	            min = currentPiece.pixelArrX[i];
 	        }
 	    }
 		// ensure it can move before moving
 		if (min > 0) {
 			for (int i = 0; i < 4; i++) {					
-				activePieceX[i] = activePieceX[i] - UNIT_SIZE;
+				currentPiece.pixelArrX[i] = currentPiece.pixelArrX[i] - UNIT_SIZE;
 			}
 		}
 	}
@@ -122,15 +117,15 @@ public class GamePanel extends JPanel implements ActionListener{
 	public void moveRight() {
 		// get right most pixel
 		int max = 0;
-		for (int i = 0; i < activePieceX.length; i++) {
-	        if (activePieceX[i] > max) {
-	            max = activePieceX[i];
+		for (int i = 0; i < currentPiece.pixelArrX.length; i++) {
+	        if (currentPiece.pixelArrX[i] > max) {
+	            max = currentPiece.pixelArrX[i];
 	        }
 	    }
 		// ensure it can move before moving
 		if (max < SCREEN_WIDTH - 25) {
 			for (int i = 0; i < 4; i++) {					
-				activePieceX[i] = activePieceX[i] + UNIT_SIZE;
+				currentPiece.pixelArrX[i] = currentPiece.pixelArrX[i] + UNIT_SIZE;
 			}
 		}
 	}
@@ -138,9 +133,9 @@ public class GamePanel extends JPanel implements ActionListener{
 	public void checkCollisions() {
 		// get lowest pixel
 		int max = 0;
-		for (int i = 0; i < activePieceY.length; i++) {
-	        if (activePieceY[i] > max) {
-	            max = activePieceY[i];
+		for (int i = 0; i < currentPiece.pixelArrY.length; i++) {
+	        if (currentPiece.pixelArrY[i] > max) {
+	            max = currentPiece.pixelArrY[i];
 	        }
 	    }
 		// check if pixel hits the ground
@@ -150,7 +145,7 @@ public class GamePanel extends JPanel implements ActionListener{
 			for (int i = 0; i < staticPiecesX.length; i++) {
 				if (staticPiecesX[i] == -1) {
 					if (c < 4) {	
-						staticPiecesX[i] = activePieceX[c];
+						staticPiecesX[i] = currentPiece.pixelArrX[c];
 						System.out.println(staticPiecesX[i]);
 						c++;
 					}
@@ -163,7 +158,7 @@ public class GamePanel extends JPanel implements ActionListener{
 			for (int i = 0; i < staticPiecesY.length; i++) {
 				if (staticPiecesY[i] == -1) {
 					if (d < 4) {		
-						staticPiecesY[i] = activePieceY[d] - 25;
+						staticPiecesY[i] = currentPiece.pixelArrY[d] - 25;
 						System.out.println(staticPiecesY[i]);
 						d++;
 					}
