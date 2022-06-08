@@ -51,7 +51,7 @@ public class GamePanel extends JPanel implements ActionListener{
 		int t = random.nextInt(7) + 1;
 		// generate new piece using random number
 		Tetromino piece = new Tetromino(t);
-		System.out.println("Current Piece: " + piece.name);
+		System.out.println("Current Piece: " + piece.name + " | " + piece.colorCode);
 		currentPiece = piece;
 	}
 	
@@ -67,22 +67,31 @@ public class GamePanel extends JPanel implements ActionListener{
 				g.drawLine(i*UNIT_SIZE, 0, i*UNIT_SIZE, SCREEN_HEIGHT);
 				g.drawLine(0, i*UNIT_SIZE, SCREEN_WIDTH, i*UNIT_SIZE);
 			}
-			//get color
-			Color color;
-			if (currentPiece.id == 1 || currentPiece.id == 4 ||currentPiece.id == 7) {
-				color = Color.white;
-			} else if (currentPiece.id == 1 || currentPiece.id == 5) {
-				color = Color.blue;
-			} else {
-				color = Color.red;
-			}
 			// draw active pixels
-			for (int i = 0; i < 4; i++) {				
+			for (int i = 0; i < 4; i++) {	
+				//get color
+				Color color;
+				if (currentPiece.colorCode == 1) {
+					color = Color.white;
+				} else if (currentPiece.colorCode == 2) {
+					color = Color.blue;
+				} else {
+					color = Color.red;
+				}
 				g.setColor(color);
 				g.fillRect(currentPiece.pixelArrX[i], currentPiece.pixelArrY[i], UNIT_SIZE, UNIT_SIZE);
 			}
 			// draw static pixels
 			for (int i = 0; i < staticPixels.size(); i++) {
+				//get color
+				Color color;
+				if (staticPixels.get(i).colorCode == 1) {
+					color = Color.white;
+				} else if (staticPixels.get(i).colorCode == 2) {
+					color = Color.blue;
+				} else {
+					color = Color.red;
+				}
 				g.setColor(color);
 				g.fillRect(staticPixels.get(i).xCoord, staticPixels.get(i).yCoord - UNIT_SIZE, UNIT_SIZE, UNIT_SIZE);
 			}
