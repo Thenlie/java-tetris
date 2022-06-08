@@ -73,23 +73,20 @@ public class GamePanel extends JPanel implements ActionListener{
 	}
 		
 	public void moveDown() {
-		// move piece down one square
 		for (int i = 0; i < 4; i++) {					
 			y[i] = y[i] + UNIT_SIZE;
 		}
 	}
 	
 	public void moveLeft() {
+		// get left most pixel
 		int min = SCREEN_WIDTH;
 		for (int i = 0; i < x.length; i++) {
 	        if (x[i] < min) {
 	            min = x[i];
 	        }
 	    }
-		System.out.println("Left");
-		System.out.println(x[0]);
-		System.out.println(SCREEN_WIDTH - 25);
-		// move piece left one square
+		// ensure it can move before moving
 		if (min > 0) {
 			for (int i = 0; i < 4; i++) {					
 				x[i] = x[i] - UNIT_SIZE;
@@ -98,16 +95,14 @@ public class GamePanel extends JPanel implements ActionListener{
 	}
 	
 	public void moveRight() {
+		// get right most pixel
 		int max = 0;
 		for (int i = 0; i < x.length; i++) {
 	        if (x[i] > max) {
 	            max = x[i];
 	        }
 	    }
-		System.out.println("Right");
-		System.out.println(x[0]);
-		System.out.println(SCREEN_WIDTH - 25);
-		// move piece right one square
+		// ensure it can move before moving
 		if (max < SCREEN_WIDTH - 25) {
 			for (int i = 0; i < 4; i++) {					
 				x[i] = x[i] + UNIT_SIZE;
@@ -116,8 +111,15 @@ public class GamePanel extends JPanel implements ActionListener{
 	}
 	
 	public void checkCollisions() {
+		// get lowest pixel
+		int max = 0;
+		for (int i = 0; i < y.length; i++) {
+	        if (y[i] > max) {
+	            max = y[i];
+	        }
+	    }
 		// check if pixel hits the ground
-		if (y[0] > SCREEN_HEIGHT - 25) {
+		if (max > SCREEN_HEIGHT - 25) {
 			running = false;
 		}
 		
