@@ -15,7 +15,6 @@ public class GamePanel extends JPanel implements ActionListener{
 	int gravity = 5;
 	int[] x =  new int[4];
 	int[] y = new int[4];
-	char direction = 'D';
 	boolean running = false;
 	Timer timer;
 	Random random;
@@ -74,32 +73,32 @@ public class GamePanel extends JPanel implements ActionListener{
 	}
 		
 	public void moveDown() {
-		// move pixel down one square
+		// move piece down one square
 		for (int i = 0; i < 4; i++) {					
 			y[i] = y[i] + UNIT_SIZE;
 		}
 	}
 	
-	public void move() {
-		// check for left or right input
-		if (direction == 'R') {
-			if (x[0] < SCREEN_WIDTH - 25) {
-				for (int i = 0; i < 4; i++) {					
-					x[i] = x[i] + UNIT_SIZE;
-				}
-				direction = 'D';
-			} else {
-				direction = 'D';
+	public void moveLeft() {
+		System.out.println("Left");
+		System.out.println(x[0]);
+		System.out.println(SCREEN_WIDTH - 25);
+		// move piece left one square
+		if (x[0] > 0) {
+			for (int i = 0; i < 4; i++) {					
+				x[i] = x[i] - UNIT_SIZE;
 			}
 		}
-		if (direction == 'L') {
-			if (x[0] > 0) {				
-				for (int i = 0; i < 4; i++) {					
-					x[i] = x[i] - UNIT_SIZE;
-				}
-				direction = 'D';
-			} else {
-				direction = 'D';
+	}
+	
+	public void moveRight() {
+		System.out.println("Right");
+		System.out.println(x[0]);
+		System.out.println(SCREEN_WIDTH - 25);
+		// move piece right one square
+		if (x[0] < SCREEN_WIDTH - 25) {
+			for (int i = 0; i < 4; i++) {					
+				x[i] = x[i] + UNIT_SIZE;
 			}
 		}
 	}
@@ -127,7 +126,6 @@ public class GamePanel extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if (running) {
 			timerCount++;
-			move();
 			if (timerCount == gravity) {			
 				timerCount = 0;
 				moveDown();
@@ -142,17 +140,12 @@ public class GamePanel extends JPanel implements ActionListener{
 		public void keyPressed(KeyEvent e) {
 			switch (e.getKeyCode()) {
 			case KeyEvent.VK_LEFT:
-				if (direction != 'R') {
-					direction = 'L';
-				}
+				moveLeft();
 				break;
 			case KeyEvent.VK_RIGHT:
-				if (direction != 'L') {
-					direction = 'R';
-				}
+				moveRight();
 				break;
 			case KeyEvent.VK_DOWN:
-				direction = 'D';
 				moveDown();
 				break;
 			}
