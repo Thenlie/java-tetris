@@ -31,10 +31,14 @@ public class GamePanel extends JPanel implements ActionListener{
 	}
 	
 	public void startGame() {
-		Tetromino piece = new Tetromino(2);
-		piece.showType();
-		System.out.println(piece.type);
-		x[0] = 100;
+		// create a random number for the piece type
+		random = new Random();
+		int t = random.nextInt(7) + 1;
+		// generate new piece using random number
+		Tetromino piece = new Tetromino(t);
+		System.out.println("Current Piece: " + piece.name);
+		// set pixel starting position
+		x[0] = UNIT_SIZE * 4;
 		running = true;
 		timer = new Timer(DELAY, this);
 		timer.start();
@@ -52,7 +56,6 @@ public class GamePanel extends JPanel implements ActionListener{
 				g.drawLine(i*UNIT_SIZE, 0, i*UNIT_SIZE, SCREEN_HEIGHT);
 				g.drawLine(0, i*UNIT_SIZE, SCREEN_WIDTH, i*UNIT_SIZE);
 			}
-			
 			// draw pixel
 			g.setColor(Color.green);
 			g.fillRect(x[0], y[0], UNIT_SIZE, UNIT_SIZE);

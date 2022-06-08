@@ -1,37 +1,105 @@
 package tetris;
 
 public class Tetromino {
-	int type;
-	String s;
+	int id;
+	String name;
+	int[] pixelArrX = new int[4];
+	int[] pixelArrY = new int[4];
 	
 	public Tetromino(int x) {
-		type = x;
-	}
-	
-	public void showType() {
-		switch (type) {
+		id = x;
+		switch (id) {
 		case 1:
-			s = "I";
+			name = "I";
+			// set x pixel coordinate
+			pixelArrX[0] = 0;
+			pixelArrX[1] = -1;
+			pixelArrX[2] = 1;
+			pixelArrX[3] = 2;
+			// set y pixel coordinate
+			pixelArrY[0] = 0;
+			pixelArrY[1] = 0;
+			pixelArrY[2] = 0;
+			pixelArrY[3] = 0;
 			break;
 		case 2:
-			s = "J";
+			name = "J";
+			// set x pixel coordinate
+			pixelArrX[0] = 0;
+			pixelArrX[1] = 0;
+			pixelArrX[2] = 0;
+			pixelArrX[3] = -1;
+			// set y pixel coordinate
+			pixelArrY[0] = 0;
+			pixelArrY[1] = 1;
+			pixelArrY[2] = 2;
+			pixelArrY[3] = 2;
 			break;
 		case 3:
-			s = "L";
+			name = "L";
+			// set x pixel coordinate
+			pixelArrX[0] = 0;
+			pixelArrX[1] = 0;
+			pixelArrX[2] = 0;
+			pixelArrX[3] = 1;
+			// set y pixel coordinate
+			pixelArrY[0] = 0;
+			pixelArrY[1] = 1;
+			pixelArrY[2] = 2;
+			pixelArrY[3] = 2;
 			break;
 		case 4:
-			s = "O";
+			name = "O";
+			// set x pixel coordinate
+			pixelArrX[0] = 0;
+			pixelArrX[1] = 1;
+			pixelArrX[2] = 1;
+			pixelArrX[3] = 0;
+			// set y pixel coordinate
+			pixelArrY[0] = 0;
+			pixelArrY[1] = 0;
+			pixelArrY[2] = 1;
+			pixelArrY[3] = 1;
 			break;
 		case 5:
-			s = "S";
+			name = "S";
+			// set x pixel coordinate
+			pixelArrX[0] = 0;
+			pixelArrX[1] = -1;
+			pixelArrX[2] = -1;
+			pixelArrX[3] = -2;
+			// set y pixel coordinate
+			pixelArrY[0] = 0;
+			pixelArrY[1] = 0;
+			pixelArrY[2] = 1;
+			pixelArrY[3] = 1;
 			break;
 		case 6:
-			s = "Z";
+			name = "Z";
+			// set x pixel coordinate
+			pixelArrX[0] = 0;
+			pixelArrX[1] = 1;
+			pixelArrX[2] = 1;
+			pixelArrX[3] = 2;
+			// set y pixel coordinate
+			pixelArrY[0] = 0;
+			pixelArrY[1] = 0;
+			pixelArrY[2] = 1;
+			pixelArrY[3] = 1;
 			break;
 		case 7:
-			s = "T";
+			name = "T";
+			// set x pixel coordinate
+			pixelArrX[0] = 0;
+			pixelArrX[1] = -1;
+			pixelArrX[2] = 1;
+			pixelArrX[3] = 0;
+			// set y pixel coordinate
+			pixelArrY[0] = 0;
+			pixelArrY[1] = 0;
+			pixelArrY[2] = 0;
+			pixelArrY[3] = 1;
 			break;
 		}
-		System.out.println(s);
 	}
 }
