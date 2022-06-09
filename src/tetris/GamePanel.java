@@ -218,7 +218,7 @@ public class GamePanel extends JPanel implements ActionListener{
 				currentPiece.rotateLeft();
 				break;
 			case KeyEvent.VK_E:
-//				currentPiece.rotateRight();
+				currentPiece.rotateRight();
 				break;
 			}
 		}

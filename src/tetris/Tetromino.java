@@ -222,7 +222,215 @@ public class Tetromino {
 	}
 	
 	public void rotateRight() {
-		
+		switch (id) {
+		case 1:
+			switch (position) {
+			case 1:
+				// set x pixel coordinate
+				pixelArrX[1] = pixelArrX[1] + UNIT_SIZE;
+				pixelArrX[2] = pixelArrX[2] - UNIT_SIZE;
+				pixelArrX[3] = pixelArrX[3] - UNIT_SIZE;
+				// set y pixel coordinate
+				pixelArrY[1] = pixelArrY[1] - UNIT_SIZE;
+				pixelArrY[2] = pixelArrY[2] + UNIT_SIZE;
+				pixelArrY[3] = pixelArrY[3] - UNIT_SIZE;
+				position = 4;
+				break;
+			case 2:
+				// set x pixel coordinate
+				pixelArrX[1] = pixelArrX[1] - UNIT_SIZE;
+				pixelArrX[2] = pixelArrX[2] + UNIT_SIZE;
+				pixelArrX[3] = pixelArrX[3] - UNIT_SIZE;
+				// set y pixel coordinate
+				pixelArrY[1] = pixelArrY[1] - UNIT_SIZE;
+				pixelArrY[2] = pixelArrY[2] + UNIT_SIZE;
+				pixelArrY[3] = pixelArrY[3] + UNIT_SIZE;
+				position = 1;
+				break;
+			case 3:
+				// set x pixel coordinate
+				pixelArrX[1] = pixelArrX[1] - UNIT_SIZE;
+				pixelArrX[2] = pixelArrX[2] + UNIT_SIZE;
+				pixelArrX[3] = pixelArrX[3] + UNIT_SIZE;
+				// set y pixel coordinate
+				pixelArrY[1] = pixelArrY[1] + UNIT_SIZE;
+				pixelArrY[2] = pixelArrY[2] - UNIT_SIZE;
+				pixelArrY[3] = pixelArrY[3] + UNIT_SIZE;
+				position = 2;
+				break;
+			case 4: 
+				// set x pixel coordinate
+				pixelArrX[1] = pixelArrX[1] + UNIT_SIZE;
+				pixelArrX[2] = pixelArrX[2] - UNIT_SIZE;
+				pixelArrX[3] = pixelArrX[3] + UNIT_SIZE;
+				// set y pixel coordinate
+				pixelArrY[1] = pixelArrY[1] + UNIT_SIZE;
+				pixelArrY[2] = pixelArrY[2] - UNIT_SIZE;
+				pixelArrY[3] = pixelArrY[3] - UNIT_SIZE;
+				position = 3;
+				break;
+			}
+			break;
+		case 2:
+			switch (position) {
+			case 1:
+				// set x pixel coordinate
+				pixelArrX[1] = pixelArrX[1] + UNIT_SIZE;
+				pixelArrX[2] = pixelArrX[2] - UNIT_SIZE;
+				pixelArrX[3] = pixelArrX[3] - (UNIT_SIZE * 2);
+				// set y pixel coordinate
+				pixelArrY[1] = pixelArrY[1] - UNIT_SIZE;
+				pixelArrY[2] = pixelArrY[2] + UNIT_SIZE;
+				position = 4;
+				break;
+			case 2:
+				// set x pixel coordinate
+				pixelArrX[1] = pixelArrX[1] - UNIT_SIZE;
+				pixelArrX[2] = pixelArrX[2] + UNIT_SIZE;
+				// set y pixel coordinate
+				pixelArrY[1] = pixelArrY[1] - UNIT_SIZE;
+				pixelArrY[2] = pixelArrY[2] + UNIT_SIZE;
+				pixelArrY[3] = pixelArrY[3] + (UNIT_SIZE * 2);
+				position = 1;
+				break;
+			case 3:
+				// set x pixel coordinate
+				pixelArrX[1] = pixelArrX[1] - UNIT_SIZE;
+				pixelArrX[2] = pixelArrX[2] + UNIT_SIZE;
+				pixelArrX[3] = pixelArrX[3] + (UNIT_SIZE * 2);
+				// set y pixel coordinate
+				pixelArrY[1] = pixelArrY[1] + UNIT_SIZE;
+				pixelArrY[2] = pixelArrY[2] - UNIT_SIZE;
+				position = 2;
+				break;
+			case 4: 
+				// set x pixel coordinate
+				pixelArrX[1] = pixelArrX[1] + UNIT_SIZE;
+				pixelArrX[2] = pixelArrX[2] - UNIT_SIZE;
+				// set y pixel coordinate
+				pixelArrY[1] = pixelArrY[1] + UNIT_SIZE;
+				pixelArrY[2] = pixelArrY[2] - UNIT_SIZE;
+				pixelArrY[3] = pixelArrY[3] - (UNIT_SIZE * 2);
+				position = 3;
+				break;
+			}
+			break;
+		case 3:
+			if (position == 1) {
+				// set x pixel coordinate
+				pixelArrX[1] = pixelArrX[1] + UNIT_SIZE;
+				pixelArrX[2] = pixelArrX[2] + UNIT_SIZE;
+				// set y pixel coordinate
+				pixelArrY[1] = pixelArrY[1] + UNIT_SIZE;
+				pixelArrY[2] = pixelArrY[2] - UNIT_SIZE;
+				pixelArrY[3] = pixelArrY[3]- (UNIT_SIZE * 2);
+				position = 2;
+				break;
+			} else {
+				// set x pixel coordinate
+				pixelArrX[1] = pixelArrX[1] - UNIT_SIZE;
+				pixelArrX[2] = pixelArrX[2] - UNIT_SIZE;
+				// set y pixel coordinate
+				pixelArrY[1] = pixelArrY[1] - UNIT_SIZE;
+				pixelArrY[2] = pixelArrY[2] + UNIT_SIZE;
+				pixelArrY[3] = pixelArrY[3] + (UNIT_SIZE * 2);
+				position = 1;
+				break;
+			}
+		case 4:
+			break;
+		case 5:
+			if (position == 1) {
+				// set x pixel coordinate
+				pixelArrX[1] = pixelArrX[1] - UNIT_SIZE;
+				pixelArrX[2] = pixelArrX[2] + UNIT_SIZE;
+				pixelArrX[3] = pixelArrX[3] + (UNIT_SIZE * 2);
+				// set y pixel coordinate
+				pixelArrY[1] = pixelArrY[1] - UNIT_SIZE;
+				pixelArrY[2] = pixelArrY[2] - UNIT_SIZE;
+				position = 2;
+				break;
+			} else {
+				// set x pixel coordinate
+				pixelArrX[1] = pixelArrX[1] + UNIT_SIZE;
+				pixelArrX[2] = pixelArrX[2] - UNIT_SIZE;
+				pixelArrX[3] = pixelArrX[3] - (UNIT_SIZE * 2);
+				// set y pixel coordinate
+				pixelArrY[1] = pixelArrY[1] + UNIT_SIZE;
+				pixelArrY[2] = pixelArrY[2] + UNIT_SIZE;
+				position = 1;
+				break;
+			}
+		case 6:
+			switch (position) {
+			case 1:
+				// set x pixel coordinate
+				pixelArrX[1] = pixelArrX[1] + UNIT_SIZE;
+				pixelArrX[2] = pixelArrX[2] - UNIT_SIZE;
+				// set y pixel coordinate
+				pixelArrY[1] = pixelArrY[1] - UNIT_SIZE;
+				pixelArrY[2] = pixelArrY[2] + UNIT_SIZE;
+				pixelArrY[3] = pixelArrY[3] - (UNIT_SIZE * 2);
+				position = 4;
+				break;
+			case 2:
+				// set x pixel coordinate
+				pixelArrX[1] = pixelArrX[1] - UNIT_SIZE;
+				pixelArrX[2] = pixelArrX[2] + UNIT_SIZE;
+				pixelArrX[3] = pixelArrX[3] - (UNIT_SIZE * 2);
+				// set y pixel coordinate
+				pixelArrY[1] = pixelArrY[1] - UNIT_SIZE;
+				pixelArrY[2] = pixelArrY[2] + UNIT_SIZE;
+				position = 1;
+				break;
+			case 3:
+				// set x pixel coordinate
+				pixelArrX[1] = pixelArrX[1] - UNIT_SIZE;
+				pixelArrX[2] = pixelArrX[2] + UNIT_SIZE;
+				// set y pixel coordinate
+				pixelArrY[1] = pixelArrY[1] + UNIT_SIZE;
+				pixelArrY[2] = pixelArrY[2] - UNIT_SIZE;
+				pixelArrY[3] = pixelArrY[3] + (UNIT_SIZE * 2);
+				position = 2;
+				break;
+			case 4: 
+				// set x pixel coordinate
+				pixelArrX[1] = pixelArrX[1] + UNIT_SIZE;
+				pixelArrX[2] = pixelArrX[2] - UNIT_SIZE;
+				pixelArrX[3] = pixelArrX[3] + (UNIT_SIZE * 2);
+				// set y pixel coordinate
+				pixelArrY[1] = pixelArrY[1] + UNIT_SIZE;
+				pixelArrY[2] = pixelArrY[2] - UNIT_SIZE;
+				position = 3;
+				break;
+			}
+			break;
+		case 7:
+			if (position == 1) {
+				// set x pixel coordinate
+				pixelArrX[0] = pixelArrX[0] + UNIT_SIZE;
+				pixelArrX[1] = pixelArrX[1] + (UNIT_SIZE * 2);
+				pixelArrX[3] = pixelArrX[3] - UNIT_SIZE;
+				// set y pixel coordinate
+				pixelArrY[0] = pixelArrY[0] - UNIT_SIZE;
+				pixelArrY[1] = pixelArrY[1] - (UNIT_SIZE * 2);
+				pixelArrY[3] = pixelArrY[3] + UNIT_SIZE;
+				position = 2;
+				break;
+			} else {
+				// set x pixel coordinate
+				pixelArrX[0] = pixelArrX[0] - UNIT_SIZE;
+				pixelArrX[1] = pixelArrX[1] - (UNIT_SIZE * 2);
+				pixelArrX[3] = pixelArrX[3] + UNIT_SIZE;
+				// set y pixel coordinate
+				pixelArrY[0] = pixelArrY[0] + UNIT_SIZE;
+				pixelArrY[1] = pixelArrY[1] + (UNIT_SIZE * 2);
+				pixelArrY[3] = pixelArrY[3] - UNIT_SIZE;
+				position = 1;
+				break;
+			}
+			
+		}
 	}
 	
 	public Tetromino(int x) {
