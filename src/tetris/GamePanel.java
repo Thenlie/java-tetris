@@ -104,8 +104,6 @@ public class GamePanel extends JPanel implements ActionListener{
 		
 	public void moveDown() {
 		for (int i = 0; i < 4; i++) {	
-			System.out.println("Move X " + currentPiece.pixelArrX[i]);
-			System.out.println("Move Y " + currentPiece.pixelArrY[i]);
 			currentPiece.pixelArrY[i] = currentPiece.pixelArrY[i] + UNIT_SIZE;
 		}
 	}
@@ -199,17 +197,30 @@ public class GamePanel extends JPanel implements ActionListener{
 				pixelCount.put(staticPixels.get(i).yCoord, 1);
 			}
 		}
-		// pass array of rows to clear line function
-		int[] rows = new int[clears.size()];
-		for (int i = 0; i < clears.size(); i++) {
-			rows[i] = clears.get(i);
+		if (clears.size() > 0) {			
+			// pass array of rows to clear line function
+			int[] rows = new int[clears.size()];
+			for (int i = 0; i < clears.size(); i++) {
+				rows[i] = clears.get(i);
+			}
+			clearLines(rows);
 		}
-		clearLine(rows);
 	}
 	
-	public void clearLine(int[] rows) {
+	public void clearLines(int[] rows) {
 		for (int i = 0; i < rows.length; i++) {
-			System.out.println(rows[i]);
+			for (int j = staticPixels.size() - 1; j > 0; j--) {
+//			System.out.println(staticPixels.get(j).yCoord);
+				// remove lines
+				if (staticPixels.get(j).yCoord == rows[i]) {
+					System.out.println("Removed: " + staticPixels.get(j).yCoord + ", " + j);
+					staticPixels.remove(j);
+				// move lines above down
+				} else if (staticPixels.get(j).yCoord < rows[i]) {
+					System.out.println("Moved Down: " + staticPixels.get(j).yCoord + ", " + j);
+					staticPixels.set(j, new Pixel(staticPixels.get(j).colorCode, staticPixels.get(j).xCoord, staticPixels.get(j).yCoord + (25 * rows.length)) );
+				} 
+			}
 		}
 	}
 	
