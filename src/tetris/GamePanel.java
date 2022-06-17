@@ -102,7 +102,9 @@ public class GamePanel extends JPanel implements ActionListener{
 	}
 		
 	public void moveDown() {
-		for (int i = 0; i < 4; i++) {					
+		for (int i = 0; i < 4; i++) {	
+			System.out.println("Move X " + currentPiece.pixelArrX[i]);
+			System.out.println("Move Y " + currentPiece.pixelArrY[i]);
 			currentPiece.pixelArrY[i] = currentPiece.pixelArrY[i] + UNIT_SIZE;
 		}
 	}
@@ -152,10 +154,15 @@ public class GamePanel extends JPanel implements ActionListener{
 			for (int j = 0; j < 4; j++) {				
 				if (staticPixels.get(i).xCoord == currentPiece.pixelArrX[j] && staticPixels.get(i).yCoord - 25 == currentPiece.pixelArrY[j]) {
 					if (start == 1) {
+						System.out.println("static x " + staticPixels.get(i).xCoord);
+						System.out.println("static y " + staticPixels.get(i).yCoord);
+						System.out.println("current x " + currentPiece.pixelArrX[j]);
+						System.out.println("current y " + currentPiece.pixelArrY[j]);
 						timer.stop();
 						running = false;
 						break;
-					} else {						
+					} else {				
+						System.out.println("Pixel");
 						setStaticPixels();
 						break;
 					}
@@ -164,8 +171,11 @@ public class GamePanel extends JPanel implements ActionListener{
 		}
 		
 		// check if pixel hits the ground
-		if (maxY > SCREEN_HEIGHT - 25) {
-			setStaticPixels();
+		if (maxY > SCREEN_HEIGHT - 25 && start == 0) {
+			if (currentPiece.pixelArrY[1] > 25 && currentPiece.pixelArrY[2] > 25 && currentPiece.pixelArrY[3] > 25 && currentPiece.pixelArrY[0] > 25) {				
+				System.out.println("Ground" + maxY);
+				setStaticPixels();
+			}
 		}
 	}
 	
@@ -173,6 +183,8 @@ public class GamePanel extends JPanel implements ActionListener{
 		if (running) {			
 			// add currentPiece pixels to pixel array
 			for (int i = 0; i < 4; i++) {
+				System.out.println("X " + currentPiece.pixelArrX[i]);
+				System.out.println("Y " + currentPiece.pixelArrY[i]);
 				Pixel p = new Pixel(currentPiece.colorCode, currentPiece.pixelArrX[i], currentPiece.pixelArrY[i]);
 				staticPixels.add(p);
 			}
