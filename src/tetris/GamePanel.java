@@ -172,7 +172,7 @@ public class GamePanel extends JPanel implements ActionListener{
 		// check if pixel hits the ground
 		if (maxY > SCREEN_HEIGHT - 25 && start == 0) {
 			if (currentPiece.pixelArrY[1] > 25 && currentPiece.pixelArrY[2] > 25 && currentPiece.pixelArrY[3] > 25 && currentPiece.pixelArrY[0] > 25) {				
-				System.out.println("Ground" + maxY);
+				System.out.println("Ground " + maxY);
 				setStaticPixels();
 			}
 		}
@@ -208,18 +208,24 @@ public class GamePanel extends JPanel implements ActionListener{
 	}
 	
 	public void clearLines(int[] rows) {
-		for (int i = 0; i < rows.length; i++) {
-			for (int j = staticPixels.size() - 1; j > 0; j--) {
-//			System.out.println(staticPixels.get(j).yCoord);
+		for (int j = staticPixels.size() - 1; j >= 0; j--) {
+			int c = 0;
+			for (int i = 0; i < rows.length; i++) {
 				// remove lines
 				if (staticPixels.get(j).yCoord == rows[i]) {
 					System.out.println("Removed: " + staticPixels.get(j).yCoord + ", " + j);
 					staticPixels.remove(j);
-				// move lines above down
+					c = 0;
+					break;
+				// increment 'lines to move down' counter
 				} else if (staticPixels.get(j).yCoord < rows[i]) {
-					System.out.println("Moved Down: " + staticPixels.get(j).yCoord + ", " + j);
-					staticPixels.set(j, new Pixel(staticPixels.get(j).colorCode, staticPixels.get(j).xCoord, staticPixels.get(j).yCoord + (25 * rows.length)) );
+					c = c + 1;
 				} 
+			}
+			if (c > 0) {					
+				// move down a line
+				System.out.println("Moved Down: " + staticPixels.get(j).yCoord + ", " + j);
+				staticPixels.set(j, new Pixel(staticPixels.get(j).colorCode, staticPixels.get(j).xCoord, staticPixels.get(j).yCoord + (25 * c)));
 			}
 		}
 	}
