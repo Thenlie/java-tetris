@@ -9,15 +9,17 @@ import java.util.HashMap;
 
 public class GamePanel extends JPanel implements ActionListener{
 
+	// set screen size
 	static final int SCREEN_WIDTH = 250;
 	static final int SCREEN_HEIGHT = 500;
+	// set pixel size
 	static final int UNIT_SIZE = 25;
+	// get total count of pixels
 	static final int GAME_UNITS = (SCREEN_WIDTH * SCREEN_HEIGHT) / UNIT_SIZE;
+	// set up timer and drop rate
 	static final int DELAY = 60;
 	int timerCount = 0;
-	int gravity = 5;
-	int[] staticPixelsX = new int[GAME_UNITS];
-	int[] staticPixelsY = new int[GAME_UNITS];
+	int gravity = 2;
 	boolean running = false;
 	Timer timer;
 	Random random;
@@ -36,10 +38,6 @@ public class GamePanel extends JPanel implements ActionListener{
 	}
 	
 	public void startGame() {
-		for (int i = 0; i < GAME_UNITS; i++) {
-			staticPixelsX[i] = -1;
-			staticPixelsY[i] = -1;
-		}
 		generateTetromino();
 		running = true;
 		timer = new Timer(DELAY, this);
