@@ -5,6 +5,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.util.Random;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class GamePanel extends JPanel implements ActionListener{
 
@@ -179,6 +180,28 @@ public class GamePanel extends JPanel implements ActionListener{
 		}
 	}
 	
+	public void checkLineClear() {
+		HashMap<Integer, Integer> pixelCount = new HashMap<Integer, Integer>();
+		for (int i = 0; i < staticPixels.size(); i++) {
+			if (!pixelCount.isEmpty()) {				
+				if (pixelCount.containsKey(staticPixels.get(i).yCoord)) {
+					int val = pixelCount.get(staticPixels.get(i).yCoord);
+					System.out.println(val);
+					pixelCount.replace(staticPixels.get(i).yCoord, val + 1);
+					if (val == 9) {
+						System.out.println("Clear");
+					}
+				} else {
+					System.out.println("Add pixel");
+					pixelCount.put(staticPixels.get(i).yCoord, 1);
+				}
+			} else {
+				System.out.println("Add pixel");
+				pixelCount.put(staticPixels.get(i).yCoord, 1);
+			}
+		}
+	}
+	
 	public void setStaticPixels() {
 		if (running) {			
 			// add currentPiece pixels to pixel array
@@ -188,6 +211,7 @@ public class GamePanel extends JPanel implements ActionListener{
 				Pixel p = new Pixel(currentPiece.colorCode, currentPiece.pixelArrX[i], currentPiece.pixelArrY[i]);
 				staticPixels.add(p);
 			}
+			checkLineClear();
 			generateTetromino();
 		}
 	}
