@@ -182,23 +182,34 @@ public class GamePanel extends JPanel implements ActionListener{
 	
 	public void checkLineClear() {
 		HashMap<Integer, Integer> pixelCount = new HashMap<Integer, Integer>();
+		ArrayList<Integer> clears = new ArrayList<Integer>();
+		
 		for (int i = 0; i < staticPixels.size(); i++) {
-			if (!pixelCount.isEmpty()) {				
-				if (pixelCount.containsKey(staticPixels.get(i).yCoord)) {
-					int val = pixelCount.get(staticPixels.get(i).yCoord);
-					System.out.println(val);
-					pixelCount.replace(staticPixels.get(i).yCoord, val + 1);
-					if (val == 9) {
-						System.out.println("Clear");
-					}
-				} else {
-					System.out.println("Add pixel");
-					pixelCount.put(staticPixels.get(i).yCoord, 1);
+			if (pixelCount.containsKey(staticPixels.get(i).yCoord)) {
+				// increase value of pixelCount entry
+				int val = pixelCount.get(staticPixels.get(i).yCoord);
+				pixelCount.replace(staticPixels.get(i).yCoord, val + 1);
+				if (val == 9) {
+					// add line to clear array
+					System.out.println("Clear");
+					clears.add(staticPixels.get(i).yCoord);
 				}
 			} else {
-				System.out.println("Add pixel");
+				// create new pixelCount entry
 				pixelCount.put(staticPixels.get(i).yCoord, 1);
 			}
+		}
+		// pass array of rows to clear line function
+		int[] rows = new int[clears.size()];
+		for (int i = 0; i < clears.size(); i++) {
+			rows[i] = clears.get(i);
+		}
+		clearLine(rows);
+	}
+	
+	public void clearLine(int[] rows) {
+		for (int i = 0; i < rows.length; i++) {
+			System.out.println(rows[i]);
 		}
 	}
 	
