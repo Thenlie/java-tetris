@@ -101,8 +101,20 @@ public class GamePanel extends JPanel implements ActionListener{
 	}
 		
 	public void moveDown() {
+		// ensure piece can move before moving
+		boolean ableToMove = true;
 		for (int i = 0; i < 4; i++) {	
-			currentPiece.pixelArrY[i] = currentPiece.pixelArrY[i] + UNIT_SIZE;
+			for (int j = 0; j < staticPixels.size(); j++)
+			if (currentPiece.pixelArrX[i] == staticPixels.get(j).xCoord && currentPiece.pixelArrY[i] + 25 == staticPixels.get(j).yCoord) {
+				ableToMove = false;
+			} else if (currentPiece.pixelArrY[i] == SCREEN_HEIGHT) {
+				ableToMove = false;
+			}
+		}
+		if (ableToMove) {			
+			for (int i = 0; i < 4; i++) {	
+				currentPiece.pixelArrY[i] = currentPiece.pixelArrY[i] + UNIT_SIZE;
+			}
 		}
 	}
 	
@@ -114,7 +126,7 @@ public class GamePanel extends JPanel implements ActionListener{
 	            min = currentPiece.pixelArrX[i];
 	        }
 	    }
-		// ensure it can move before moving
+		// ensure piece can move before moving
 		if (min > 0) {
 			for (int i = 0; i < 4; i++) {					
 				currentPiece.pixelArrX[i] = currentPiece.pixelArrX[i] - UNIT_SIZE;
@@ -130,7 +142,7 @@ public class GamePanel extends JPanel implements ActionListener{
 	            max = currentPiece.pixelArrX[i];
 	        }
 	    }
-		// ensure it can move before moving
+		// ensure piece can move before moving
 		if (max < SCREEN_WIDTH - 25) {
 			for (int i = 0; i < 4; i++) {					
 				currentPiece.pixelArrX[i] = currentPiece.pixelArrX[i] + UNIT_SIZE;
